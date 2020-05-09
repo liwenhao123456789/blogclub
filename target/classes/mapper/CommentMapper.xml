@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.dao.ICommentDao">
+	
+	<select id="find" resultType="Comment">
+		select * from comment where bid=#{bid}
+	</select>
+	
+	<delete id="delete">
+		delete from comment where id=#{id}
+	</delete>
+	
+	<delete id="deleteByBlogId">
+		delete from comment where bid=#{id}
+	</delete>
+	<!-- 删除他本人的所有评论 -->
+	<delete id="deleteByUserId">
+		delete from comment where uid=#{uid}
+	</delete>
+	
+	<insert id="save">
+		insert into comment (uid,bid,ip,datetime,content) values (#{uid},#{bid},#{ip},#{dateTime},#{content})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

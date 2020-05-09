@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.dao.IUserDao">
+
+	<!-- 查询 -->
+	<select id="findById" resultType="User">
+		select * from user where id=#{id} and pass=#{pass}
+	</select>
+	<!-- 查询用户名和密码 -->
+	<select id="findByName" resultType="User">
+		select * from user where name=#{name} and pass=#{pass}
+	</select>
+	<!-- 添加用户 -->
+	<insert id="add" parameterType="User">
+		insert into User (name,pass,sex,age,tel,provinceId,cityId,areaId,inputDate,ip) values (#{name},#{pass},#{sex},#{age},#{tel},#{provinceId},#{cityId},#{areaId},#{inputDate},#{ip})
+	</insert>
+	<!-- 查询所有用的用户，除了管理员 -->
+	<select id="findUserList" resultType="User">
+		select * from user where id!=1 order by id desc
+	</select>
+	<!-- 删除用户 -->
+	<delete id="delete">
+		delete from user where id = #{id}
+	</delete>
+	<!-- 通过用户编号，查询用户对象 -->
+	<select id="find" resultType="User">
+		select * from User where id = #{id}
+	</select>
+	<!-- 更新用户 -->
+	<update id="update" parameterType="User">
+		update user set name=#{name},pass=#{pass},sex=#{sex},age=#{age},tel=#{tel},provinceId=#{provinceId},cityId=#{cityId},areaId=#{areaId},ip=#{ip} where id=#{id}
+	</update>
+	<!-- 根据用户名称查询用户对象  -->
+	<select id="findByUserName" resultType="User">
+		select * from User where name = #{name}
+	</select>
+</mapper>

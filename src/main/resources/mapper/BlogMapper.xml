@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.dao.IBlogDao">
+	
+	<cache/>
+	
+	<resultMap type="com.company.vo.BlogVO" id="rm1">
+		<id column="id" property="id"/>
+		<result column="kid" property="kid"/>
+		<result column="kindName" property="kindName"/>
+		<result column="authorName" property="authorName"/>
+		<result column="title" property="title"/>
+		<result column="schema" property="schema"/>
+		<result column="content" property="content"/>
+		<result column="clicks" property="clicks"/>
+		<result column="datetime" property="dateTime"/>
+	</resultMap>
+	
+	<select id="findAllList" resultMap="rm1">
+		SELECT blog.id,blog.kid,blogkind.`name` AS 'kindName',blog.uid,user.`name` AS 'authorName',title,`schema`,content,clicks,`datetime` FROM blog,blogkind,`user` WHERE blog.`kid` = blogkind.`id` AND blog.`uid` = `user`.`id` ORDER BY id DESC
+	</select>
+	
+	<select id="findHotList" resultMap="rm1">
+		SELECT blog.id,blog.kid,blogkind.`name` AS 'kindName',blog.uid,user.`name` AS 'authorName',title,`schema`,content,clicks,`datetime` FROM blog,blogkind,`user` WHERE blog.`kid` = blogkind.`id` AND blog.`uid` = `user`.`id` ORDER BY clicks DESC limit 0,5
+	</select>
+	
+	<select id="findIndexList" resultMap="rm1">
+		SELECT blog.id,blog.kid,blogkind.`name` AS 'kindName',blog.uid,user.`name` AS 'authorName',title,`schema`,content,clicks,`datetime` FROM blog,blogkind,`user` WHERE blog.`kid` = blogkind.`id` AND blog.`uid` = `user`.`id` ORDER BY id DESC limit 0,8
+	</select>
+	
+	<select id="findListByUser" resultMap="rm1">
+		SELECT blog.id,blog.kid,blogkind.`name` AS 'kindName',blog.uid,user.`name` AS 'authorName',title,`schema`,content,clicks,`datetime` FROM blog,blogkind,`user` WHERE blog.`kid` = blogkind.`id` AND blog.`uid` = `user`.`id` and uid=#{uid} order by id desc
+	</select>
+	
+	<select id="findKindList" resultMap="rm1">
+		SELECT blog.id,blog.kid,blogkind.`name` AS 'kindName',blog.uid,user.`name` AS 'authorName',title,`schema`,content,clicks,`datetime` FROM blog,blogkind,`user` WHERE blog.`kid` = blogkind.`id` AND blog.`uid` = `user`.`id` and kid=#{kid} order by id desc
+	</select>
+	
+	<select id="find" resultType="Blog">
+		select id,kid,uid,title,`schema`,content,clicks,`datetime` from blog where id=#{id} order by id desc
+	</select>
+	
+	<insert id="add">
+		insert into blog (kid,uid,title,`schema`,content,clicks,`dateTime`) values 
+						(#{kid},#{uid},#{title},#{schema},#{content},#{clicks},#{dateTime})
+	</insert>
+	
+	<delete id="delete">
+		delete from blog where id=#{id}
+	</delete>
+	
+	<update id="update">
+		update blog set kid=#{kid},title=#{title},`schema`=#{schema},content=#{content},clicks=#{clicks} where id=#{id}
+	</update>
+	
+	<update id="updateClicks">
+		update blog set clicks = clicks + 1 where id = #{id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

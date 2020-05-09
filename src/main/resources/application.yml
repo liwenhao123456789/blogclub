@@ -1,0 +1,24 @@
+#项目的端口和路径
+server:  port: 8088
+  servlet:    context-path: /blog
+
+#Springmvc的视图解析
+spring:  mvc:    view:      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    #设置匹配action后缀请求的配置
+    pathmatch:
+      use-suffix-pattern: false      use-registered-suffix-pattern: true
+      
+    #连接数据库的基本信息
+  datasource:    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: root
+
+#映射文件扫描的路径
+mybatis:  type-aliases-package: com.company.bean
+  mapper-locations: classpath:mapper/*.xml
+  configuration:    cache-enabled: true
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印日志
+  
+  
